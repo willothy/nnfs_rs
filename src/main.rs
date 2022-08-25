@@ -1,8 +1,10 @@
 mod layer;
 mod math;
 
-use layer::LayerDense;
+use layer::DenseLayer;
 use ndarray::array;
+
+use crate::layer::{ActivationLayer, ActivationType};
 
 fn main() {
     let input = array![
@@ -28,12 +30,15 @@ fn main() {
         ],
         vec![-1.0, 2.0, -0.5]
     ); */
-    let mut layer1 = LayerDense::new(4, 5);
-    let mut layer2 = LayerDense::new(5, 2);
+    let mut layer1 = DenseLayer::new(4, 5);
+    let mut activation1 = ActivationLayer::new(ActivationType::Relu);
+    //let mut layer2 = DenseLayer::new(5, 2);
+    //let mut activation2 = ActivationLayer::new(ActivationType::Relu);
 
     layer1.forward(&input);
-    layer2.forward(&layer1.output);
-    println!("{}", layer2.output);
+    activation1.forward(&layer1.output);
+    //layer2.forward(&layer1.output);
+    println!("{:.8}", activation1.output);
     //math::Matrix::print(&layer2.output);
 
 }
